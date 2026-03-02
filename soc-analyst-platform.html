@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOC Elite Academy — L1 to L5 Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030810;
+    --bg2: #060f1e;
+    --bg3: #0a1628;
+    --primary: #00d4ff;
+    --secondary: #ff6b35;
+    --accent: #39ff14;
+    --warn: #ffcc00;
+    --danger: #ff3355;
+    --text: #c8d8f0;
+    --text2: #7a9abd;
+    --border: rgba(0,212,255,0.15);
+    --glow: 0 0 20px rgba(0,212,255,0.3);
+    --l1: #4ade80; --l2: #60a5fa; --l3: #f59e0b; --l4: #f97316; --l5: #ef4444;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Rajdhani',sans-serif; min-height:100vh; overflow-x:hidden; }
+  
+  /* Animated background grid */
+  body::before {
+    content:''; position:fixed; inset:0; z-index:0;
+    background-image: 
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove { 0%{background-position:0 0} 100%{background-position:40px 40px} }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width:5px; } 
+  ::-webkit-scrollbar-track { background:var(--bg2); }
+  ::-webkit-scrollbar-thumb { background:var(--primary); border-radius:3px; }
+
+  /* Layout */
+  .container { max-width:1400px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(180deg, rgba(3,8,16,0.98) 0%, rgba(6,15,30,0.95) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 30px;
+    position: sticky; top:0; z-index:100;
+    backdrop-filter: blur(20px);
+  }
+  .header-inner { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:70px; }
+  .logo { display:flex; align-items:center; gap:12px; }
+  .logo-icon { width:42px; height:42px; background: conic-gradient(var(--primary), var(--accent), var(--primary)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; animation: rotateLogo 8s linear infinite; }
+  @keyframes rotateLogo { 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} }
+  .logo-text { font-family:'Orbitron',monospace; font-size:18px; font-weight:900; background:linear-gradient(90deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .logo-sub { font-size:11px; color:var(--text2); letter-spacing:3px; font-family:'Space Mono',monospace; }
+  nav { display:flex; gap:5px; }
+  nav button { background:transparent; border:1px solid transparent; color:var(--text2); padding:8px 18px; border-radius:6px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:600; transition:all 0.2s; letter-spacing:1px; }
+  nav button:hover, nav button.active { color:var(--primary); border-color:var(--border); background:rgba(0,212,255,0.05); }
+  .user-stats { display:flex; align-items:center; gap:15px; }
+  .xp-badge { background:rgba(57,255,20,0.1); border:1px solid rgba(57,255,20,0.3); padding:6px 14px; border-radius:20px; font-family:'Space Mono',monospace; font-size:12px; color:var(--accent); }
+
+  /* HERO */
+  .hero { padding: 80px 30px 60px; text-align:center; position:relative; }
+  .hero::after { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-badge { display:inline-block; background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.25); padding:6px 20px; border-radius:20px; font-size:12px; color:var(--primary); letter-spacing:3px; font-family:'Space Mono',monospace; margin-bottom:25px; }
+  .hero h1 { font-family:'Orbitron',monospace; font-size:clamp(28px,5vw,58px); font-weight:900; line-height:1.1; margin-bottom:20px; }
+  .hero h1 span { background:linear-gradient(135deg,var(--primary) 0%,var(--accent) 50%,var(--secondary) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero p { font-size:18px; color:var(--text2); max-width:650px; margin:0 auto 40px; line-height:1.7; }
+  .hero-cta { display:flex; gap:15px; justify-content:center; flex-wrap:wrap; }
+  .btn-primary { background:linear-gradient(135deg,var(--primary),#0099bb); color:#000; padding:14px 32px; border:none; border-radius:8px; font-family:'Orbitron',monospace; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.3s; letter-spacing:1px; box-shadow:0 0 30px rgba(0,212,255,0.3); }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 50px rgba(0,212,255,0.5); }
+  .btn-outline { background:transparent; color:var(--primary); padding:14px 32px; border:1px solid var(--primary); border-radius:8px; font-family:'Orbitron',monospace; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.3s; letter-spacing:1px; }
+  .btn-outline:hover { background:rgba(0,212,255,0.08); }
+
+  /* OVERALL PROGRESS */
+  .overall-progress { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:30px; margin:0 30px 50px; position:relative; z-index:1; }
+  .op-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:15px; }
+  .op-title { font-family:'Orbitron',monospace; font-size:14px; color:var(--primary); letter-spacing:2px; }
+  .op-stats { display:flex; gap:20px; }
+  .op-stat { text-align:center; }
+  .op-stat-val { font-family:'Space Mono',monospace; font-size:22px; font-weight:700; color:var(--accent); }
+  .op-stat-label { font-size:11px; color:var(--text2); letter-spacing:2px; }
+  .levels-bar { display:flex; gap:8px; }
+  .lbar { flex:1; height:10px; border-radius:5px; overflow:hidden; background:rgba(255,255,255,0.05); }
+  .lbar-fill { height:100%; border-radius:5px; transition:width 1s ease; }
+  .lbar-label { font-size:11px; color:var(--text2); margin-top:5px; font-family:'Space Mono',monospace; text-align:center; }
+
+  /* SECTION */
+  .section { padding:20px 30px 60px; }
+  .section-title { font-family:'Orbitron',monospace; font-size:22px; font-weight:900; margin-bottom:8px; }
+  .section-sub { color:var(--text2); font-size:15px; margin-bottom:35px; }
+
+  /* LEVEL CARDS */
+  .levels-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin-bottom:50px; }
+  .level-card {
+    background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:25px;
+    cursor:pointer; transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .level-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+  .level-card[data-level="1"]::before { background:var(--l1); }
+  .level-card[data-level="2"]::before { background:var(--l2); }
+  .level-card[data-level="3"]::before { background:var(--l3); }
+  .level-card[data-level="4"]::before { background:var(--l4); }
+  .level-card[data-level="5"]::before { background:var(--l5); }
+  .level-card:hover { transform:translateY(-4px); border-color:rgba(0,212,255,0.3); box-shadow:var(--glow); }
+  .level-card.active { border-color:var(--primary); box-shadow:var(--glow); }
+  .lc-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:15px; }
+  .lc-badge { font-family:'Orbitron',monospace; font-size:11px; padding:4px 12px; border-radius:4px; letter-spacing:2px; }
+  .lc-progress-text { font-family:'Space Mono',monospace; font-size:12px; color:var(--text2); }
+  .lc-title { font-family:'Orbitron',monospace; font-size:16px; font-weight:700; margin-bottom:6px; }
+  .lc-desc { font-size:13px; color:var(--text2); line-height:1.6; margin-bottom:15px; }
+  .lc-progress-bar { background:rgba(255,255,255,0.05); border-radius:4px; height:6px; overflow:hidden; margin-bottom:12px; }
+  .lc-progress-fill { height:100%; border-radius:4px; transition:width 1s ease; }
+  .lc-meta { display:flex; gap:12px; flex-wrap:wrap; }
+  .lc-tag { font-size:11px; background:rgba(0,212,255,0.07); border:1px solid rgba(0,212,255,0.12); padding:3px 10px; border-radius:4px; color:var(--text2); }
+
+  /* CONTENT AREA */
+  .content-area { display:none; }
+  .content-area.visible { display:block; }
+  
+  /* Module grid */
+  .modules-grid { display:grid; grid-template-columns:300px 1fr; gap:25px; }
+  @media(max-width:900px){ .modules-grid { grid-template-columns:1fr; } }
+
+  /* Sidebar topics */
+  .sidebar { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:20px; height:fit-content; position:sticky; top:90px; }
+  .sidebar-title { font-family:'Orbitron',monospace; font-size:12px; color:var(--primary); letter-spacing:2px; margin-bottom:15px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+  .topic-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; cursor:pointer; transition:all 0.2s; margin-bottom:4px; }
+  .topic-item:hover { background:rgba(0,212,255,0.05); }
+  .topic-item.active { background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.15); }
+  .topic-item.completed .ti-icon { background:var(--accent); color:#000; }
+  .ti-icon { width:28px; height:28px; border-radius:6px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+  .ti-text { flex:1; }
+  .ti-name { font-size:13px; font-weight:600; }
+  .ti-sub { font-size:11px; color:var(--text2); }
+  .ti-check { font-size:14px; color:var(--accent); }
+
+  /* Main content */
+  .main-content { display:flex; flex-direction:column; gap:20px; }
+  .content-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+  .cc-header { padding:20px 25px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+  .cc-title { font-family:'Orbitron',monospace; font-size:15px; }
+  .cc-badge { font-size:11px; padding:4px 12px; border-radius:4px; font-family:'Space Mono',monospace; }
+  .cc-body { padding:25px; }
+
+  /* Video grid */
+  .video-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:15px; }
+  .video-card { background:var(--bg3); border:1px solid var(--border); border-radius:12px; overflow:hidden; cursor:pointer; transition:all 0.2s; }
+  .video-card:hover { transform:translateY(-2px); border-color:rgba(255,0,0,0.3); }
+  .video-thumb { background:linear-gradient(135deg,#0f0f0f,#1a0000); height:140px; display:flex; align-items:center; justify-content:center; position:relative; }
+  .video-thumb .play-btn { width:50px; height:50px; background:rgba(255,0,0,0.8); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; transition:all 0.2s; }
+  .video-card:hover .play-btn { background:rgba(255,0,0,1); transform:scale(1.1); }
+  .video-label { position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); font-size:10px; padding:2px 6px; border-radius:3px; font-family:'Space Mono',monospace; }
+  .video-info { padding:12px; }
+  .video-title { font-size:13px; font-weight:600; line-height:1.4; margin-bottom:6px; }
+  .video-meta { font-size:11px; color:var(--text2); display:flex; gap:10px; }
+  .yt-link { display:inline-flex; align-items:center; gap:6px; color:#ff4444; font-size:12px; text-decoration:none; }
+  .yt-link:hover { color:#ff6666; }
+
+  /* Tools grid */
+  .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; }
+  .tool-card { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:16px; transition:all 0.2s; }
+  .tool-card:hover { border-color:rgba(0,212,255,0.25); }
+  .tool-icon { font-size:28px; margin-bottom:10px; }
+  .tool-name { font-family:'Orbitron',monospace; font-size:12px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+  .tool-cat { font-size:11px; color:var(--text2); margin-bottom:8px; }
+  .tool-desc { font-size:12px; color:var(--text2); line-height:1.5; }
+  .tool-link { display:inline-block; margin-top:10px; font-size:11px; color:var(--accent); text-decoration:none; border:1px solid rgba(57,255,20,0.2); padding:3px 10px; border-radius:4px; }
+
+  /* Notes */
+  .notes-content { background:var(--bg3); border-radius:10px; padding:25px; font-size:14px; line-height:1.9; color:var(--text); }
+  .notes-content h3 { font-family:'Orbitron',monospace; font-size:14px; color:var(--primary); margin:20px 0 10px; }
+  .notes-content h3:first-child { margin-top:0; }
+  .notes-content p { margin-bottom:12px; }
+  .notes-content ul { margin:10px 0 15px 20px; }
+  .notes-content ul li { margin-bottom:6px; }
+  .notes-content code { background:rgba(0,212,255,0.08); color:var(--accent); padding:2px 8px; border-radius:4px; font-family:'Space Mono',monospace; font-size:12px; }
+  .notes-content .highlight { background:rgba(255,107,53,0.1); border-left:3px solid var(--secondary); padding:12px 15px; border-radius:0 8px 8px 0; margin:15px 0; }
+  .notes-content .important { background:rgba(0,212,255,0.06); border-left:3px solid var(--primary); padding:12px 15px; border-radius:0 8px 8px 0; margin:15px 0; }
+
+  /* Practice labs */
+  .lab-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:15px; }
+  .lab-card { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:18px; }
+  .lab-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+  .lab-title { font-size:14px; font-weight:700; line-height:1.3; }
+  .lab-diff { font-size:10px; padding:3px 10px; border-radius:4px; font-family:'Space Mono',monospace; }
+  .diff-easy { background:rgba(74,222,128,0.1); color:var(--l1); border:1px solid rgba(74,222,128,0.2); }
+  .diff-med { background:rgba(245,158,11,0.1); color:var(--l3); border:1px solid rgba(245,158,11,0.2); }
+  .diff-hard { background:rgba(239,68,68,0.1); color:var(--l5); border:1px solid rgba(239,68,68,0.2); }
+  .lab-desc { font-size:12px; color:var(--text2); line-height:1.6; margin-bottom:12px; }
+  .lab-tools { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
+  .lab-tool-tag { font-size:10px; background:rgba(0,212,255,0.06); border:1px solid rgba(0,212,255,0.1); padding:2px 8px; border-radius:4px; color:var(--text2); }
+  .lab-links { display:flex; gap:8px; flex-wrap:wrap; }
+  .lab-link { font-size:11px; padding:5px 12px; border-radius:5px; text-decoration:none; font-family:'Space Mono',monospace; }
+  .lab-link.tryh { background:rgba(255,0,68,0.1); color:#ff4488; border:1px solid rgba(255,0,68,0.2); }
+  .lab-link.hack { background:rgba(57,255,20,0.08); color:var(--accent); border:1px solid rgba(57,255,20,0.15); }
+  .lab-link.blue { background:rgba(0,212,255,0.08); color:var(--primary); border:1px solid rgba(0,212,255,0.15); }
+  .lab-link:hover { filter:brightness(1.2); }
+
+  /* Complete button */
+  .complete-btn { width:100%; padding:14px; background:linear-gradient(135deg,rgba(57,255,20,0.1),rgba(0,212,255,0.1)); border:1px solid rgba(57,255,20,0.3); color:var(--accent); border-radius:10px; font-family:'Orbitron',monospace; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.3s; letter-spacing:2px; }
+  .complete-btn:hover { background:linear-gradient(135deg,rgba(57,255,20,0.2),rgba(0,212,255,0.2)); box-shadow:0 0 20px rgba(57,255,20,0.2); }
+  .complete-btn.done { background:linear-gradient(135deg,rgba(57,255,20,0.2),rgba(0,212,255,0.2)); border-color:var(--accent); }
+
+  /* Cert badges */
+  .cert-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:15px; }
+  .cert-card { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; }
+  .cert-icon { font-size:40px; margin-bottom:10px; }
+  .cert-name { font-family:'Orbitron',monospace; font-size:11px; font-weight:700; color:var(--warn); margin-bottom:5px; }
+  .cert-org { font-size:12px; color:var(--text2); margin-bottom:10px; }
+  .cert-link { font-size:11px; color:var(--primary); text-decoration:none; }
+  .cert-link:hover { text-decoration:underline; }
+
+  /* Toast */
+  .toast { position:fixed; bottom:30px; right:30px; background:var(--bg3); border:1px solid var(--accent); color:var(--accent); padding:14px 24px; border-radius:10px; font-family:'Space Mono',monospace; font-size:13px; z-index:999; transform:translateY(100px); opacity:0; transition:all 0.3s; box-shadow:0 0 30px rgba(57,255,20,0.2); }
+  .toast.show { transform:translateY(0); opacity:1; }
+
+  /* Footer */
+  footer { border-top:1px solid var(--border); padding:30px; text-align:center; color:var(--text2); font-size:13px; position:relative; z-index:1; }
+
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .tabs { display:flex; gap:8px; margin-bottom:25px; flex-wrap:wrap; }
+  .tab-btn { background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text2); padding:8px 20px; border-radius:6px; cursor:pointer; font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:600; transition:all 0.2s; }
+  .tab-btn:hover, .tab-btn.active { background:rgba(0,212,255,0.08); color:var(--primary); border-color:rgba(0,212,255,0.25); }
+
+  .section-divider { height:1px; background:var(--border); margin:40px 0; }
+  
+  /* Roadmap */
+  .roadmap { display:flex; flex-direction:column; gap:0; }
+  .rm-item { display:flex; gap:20px; }
+  .rm-line { display:flex; flex-direction:column; align-items:center; }
+  .rm-dot { width:14px; height:14px; border-radius:50%; border:2px solid var(--primary); background:var(--bg); flex-shrink:0; margin-top:4px; }
+  .rm-dot.done { background:var(--accent); border-color:var(--accent); }
+  .rm-connector { width:2px; flex:1; background:var(--border); min-height:20px; }
+  .rm-content { padding:0 0 30px 0; }
+  .rm-title { font-weight:700; font-size:15px; margin-bottom:4px; }
+  .rm-desc { font-size:13px; color:var(--text2); }
+
+  @media(max-width:600px) {
+    .hero h1 { font-size:26px; }
+    nav { display:none; }
+    .op-stats { gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🛡️</div>
+      <div>
+        <div class="logo-text">SOC ELITE</div>
+        <div class="logo-sub">ACADEMY</div>
+      </div>
+    </div>
+    <nav>
+      <button class="active" onclick="showPage('home')">🏠 Dashboard</button>
+      <button onclick="showPage('roadmap')">🗺️ Roadmap</button>
+      <button onclick="showPage('tools')">🔧 All Tools</button>
+      <button onclick="showPage('certs')">🏆 Certifications</button>
+    </nav>
+    <div class="user-stats">
+      <div class="xp-badge" id="xpBadge">⚡ 0 XP</div>
+    </div>
+  </div>
+</header>
+
+<!-- HOME PAGE -->
+<div id="page-home">
+  <div class="hero">
+    <div class="container">
+      <div class="hero-badge">INDUSTRY-GRADE TRAINING</div>
+      <h1>Become a <span>SOC Analyst</span><br>Level 1 → Level 5</h1>
+      <p>Real-world curriculum used by top companies like Microsoft, CrowdStrike, Palo Alto, IBM & Deloitte. Tools, labs, videos, notes — sab kuch ek jagah.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="scrollToLevels()">🚀 Start Training</button>
+        <button class="btn-outline" onclick="showPage('roadmap')">📍 View Roadmap</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="overall-progress">
+      <div class="op-header">
+        <div class="op-title">📊 OVERALL PROGRESS</div>
+        <div class="op-stats">
+          <div class="op-stat"><div class="op-stat-val" id="totalDone">0</div><div class="op-stat-label">COMPLETED</div></div>
+          <div class="op-stat"><div class="op-stat-val" id="totalModules">25</div><div class="op-stat-label">TOTAL</div></div>
+          <div class="op-stat"><div class="op-stat-val" id="totalPct">0%</div><div class="op-stat-label">PROGRESS</div></div>
+        </div>
+      </div>
+      <div class="levels-bar" id="levelsBar">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <!-- LEVELS -->
+    <div class="section" id="levels-section">
+      <div class="section-title">🎯 Training Levels</div>
+      <div class="section-sub">Industry-standard SOC roles — Junior Analyst se CISO Level Architect tak</div>
+      <div class="levels-grid" id="levelsGrid"></div>
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div id="contentArea" class="section content-area">
+      <div id="levelTitle" class="section-title"></div>
+      <div id="levelDesc" class="section-sub"></div>
+      <div class="tabs" id="contentTabs">
+        <button class="tab-btn active" onclick="switchTab('overview')">📋 Overview</button>
+        <button class="tab-btn" onclick="switchTab('videos')">🎥 Videos</button>
+        <button class="tab-btn" onclick="switchTab('notes')">📝 Notes</button>
+        <button class="tab-btn" onclick="switchTab('tools')">🔧 Tools</button>
+        <button class="tab-btn" onclick="switchTab('labs')">🧪 Labs</button>
+        <button class="tab-btn" onclick="switchTab('modules')">📚 Modules</button>
+      </div>
+      <div id="tab-overview" class="tab-content active"></div>
+      <div id="tab-videos" class="tab-content"></div>
+      <div id="tab-notes" class="tab-content"></div>
+      <div id="tab-tools" class="tab-content"></div>
+      <div id="tab-labs" class="tab-content"></div>
+      <div id="tab-modules" class="tab-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP PAGE -->
+<div id="page-roadmap" style="display:none; padding:40px 30px;">
+  <div class="container">
+    <div class="section-title">🗺️ Complete SOC Career Roadmap</div>
+    <div class="section-sub">Industry-standard path — 0 se Expert tak step-by-step</div>
+    <div class="roadmap" id="roadmapContent"></div>
+  </div>
+</div>
+
+<!-- ALL TOOLS PAGE -->
+<div id="page-tools" style="display:none; padding:40px 30px;">
+  <div class="container">
+    <div class="section-title">🔧 Complete SOC Toolset</div>
+    <div class="section-sub">All industry-level tools used by top companies</div>
+    <div class="tools-grid" id="allToolsGrid"></div>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS PAGE -->
+<div id="page-certs" style="display:none; padding:40px 30px;">
+  <div class="container">
+    <div class="section-title">🏆 SOC Certifications</div>
+    <div class="section-sub">Industry-recognized certifications — Level 1 se Level 5 tak</div>
+    <div class="cert-grid" id="certsGrid"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <p>🛡️ SOC Elite Academy — Industry-grade training for the next generation of security analysts</p>
+  <p style="margin-top:8px; font-size:11px;">Covering: SIEM • EDR • SOAR • Threat Intel • Malware Analysis • Forensics • Cloud Security</p>
+</footer>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const LEVELS = [
+  {
+    id:1, color:'#4ade80', 
+    title:'L1 — Junior SOC Analyst',
+    shortTitle:'L1 Junior',
+    desc:'Foundation level — Monitoring, alerting, basic triaging, help desk security',
+    fullDesc:'Real companies hiring at L1: Infosys, Wipro, TCS, Accenture, IBM Security. Yahan se journey shuru hoti hai. Basic tools seekhna, alerts dekhna, tickets banana.',
+    modules:['Security Fundamentals','Network Basics','Log Analysis Intro','SIEM Basics','Alert Triage','Ticketing Systems','Basic Threat Detection'],
+    tags:['Entry Level','0-2 yrs','₹4-8 LPA'],
+    xp:500
+  },
+  {
+    id:2, color:'#60a5fa',
+    title:'L2 — SOC Analyst',
+    shortTitle:'L2 Analyst',
+    desc:'Intermediate — Investigation, threat hunting basics, incident response',
+    fullDesc:'Companies: Deloitte, KPMG, PwC, Cognizant, Capgemini. Yahan aap real incidents investigate karte hain, threat hunting shuru karte hain.',
+    modules:['Advanced SIEM','Incident Response','Malware Basics','Network Forensics','Threat Hunting L1','Vulnerability Assessment','Security Playbooks'],
+    tags:['Mid Level','2-4 yrs','₹8-18 LPA'],
+    xp:1000
+  },
+  {
+    id:3, color:'#f59e0b',
+    title:'L3 — Senior SOC Analyst',
+    shortTitle:'L3 Senior',
+    desc:'Advanced — Deep forensics, threat intel, red/blue team, cloud security',
+    fullDesc:'Top MNCs: Microsoft, Palo Alto Networks, CrowdStrike, Mandiant, FireEye. Aap yahan expert bante hain — malware analysis, threat intel, cloud incidents.',
+    modules:['Digital Forensics','Malware Analysis','Threat Intelligence','Cloud Security','Red Team Basics','SOAR Engineering','Advanced Hunting'],
+    tags:['Senior Level','4-7 yrs','₹18-35 LPA'],
+    xp:2000
+  },
+  {
+    id:4, color:'#f97316',
+    title:'L4 — SOC Lead / Manager',
+    shortTitle:'L4 Lead',
+    desc:'Leadership — Team management, SOC strategy, architecture, compliance',
+    fullDesc:'Roles at: Goldman Sachs, JP Morgan, HDFC Bank, Amazon Security, Google. SOC team lead karna, strategy banana, compliance manage karna.',
+    modules:['SOC Architecture','Team Management','Compliance & GRC','Threat Modeling','Security Metrics','CISO Strategy Basics','Vendor Management'],
+    tags:['Lead Level','7-10 yrs','₹35-65 LPA'],
+    xp:3000
+  },
+  {
+    id:5, color:'#ef4444',
+    title:'L5 — SOC Architect / Director',
+    shortTitle:'L5 Architect',
+    desc:'Elite level — Enterprise security architecture, zero trust, AI-driven SOC',
+    fullDesc:'Top positions: Apple, Meta, PayPal, CERT-In, NSA-equivalent roles. Enterprise-wide security design, zero trust architecture, AI/ML security operations.',
+    modules:['Zero Trust Architecture','AI/ML in Security','Enterprise SecOps','Advanced Threat Intel','Security Program Mgmt','Board-Level Reporting','Global SOC Design'],
+    tags:['Director Level','10+ yrs','₹65L-2Cr+'],
+    xp:5000
+  }
+];
+
+const VIDEOS = {
+  1: [
+    {title:'SOC Analyst Full Course Hindi - Zero to Hero',ch:'HackerSploit India',dur:'6h 32m',url:'https://youtube.com/results?search_query=SOC+analyst+course+hindi',topic:'Foundation'},
+    {title:'Security Operations Center Complete Guide',ch:'Network Chuck',dur:'3h 15m',url:'https://youtube.com/results?search_query=soc+analyst+complete+guide',topic:'Overview'},
+    {title:'SIEM Tutorial - Splunk for Beginners',ch:'Splunk Official',dur:'2h 45m',url:'https://youtube.com/results?search_query=splunk+tutorial+beginners+soc',topic:'SIEM'},
+    {title:'Network Security Fundamentals',ch:'Professor Messer',dur:'4h 20m',url:'https://youtube.com/results?search_query=network+security+fundamentals+comptia',topic:'Networking'},
+    {title:'Log Analysis for SOC Analysts',ch:'TCM Security',dur:'1h 55m',url:'https://youtube.com/results?search_query=log+analysis+soc+analyst',topic:'Logs'},
+    {title:'Alert Triage - Real World Examples',ch:'Day Cybersecurity',dur:'45m',url:'https://youtube.com/results?search_query=soc+alert+triage+examples',topic:'Triage'},
+  ],
+  2: [
+    {title:'Incident Response Full Course 2024',ch:'SANS Institute',dur:'8h 10m',url:'https://youtube.com/results?search_query=incident+response+full+course+2024',topic:'IR'},
+    {title:'Threat Hunting with Elastic SIEM',ch:'Elastic Official',dur:'3h 25m',url:'https://youtube.com/results?search_query=threat+hunting+elastic+siem',topic:'Hunting'},
+    {title:'Malware Analysis Basics - Free Course',ch:'Any.run',dur:'4h 0m',url:'https://youtube.com/results?search_query=malware+analysis+basics+course',topic:'Malware'},
+    {title:'Network Forensics Tutorial',ch:'13Cubed',dur:'2h 30m',url:'https://youtube.com/results?search_query=network+forensics+tutorial+wireshark',topic:'Forensics'},
+    {title:'Splunk Enterprise Security Deep Dive',ch:'Splunk',dur:'5h 15m',url:'https://youtube.com/results?search_query=splunk+enterprise+security+soc',topic:'SIEM'},
+    {title:'Microsoft Sentinel Complete Tutorial',ch:'John Savill',dur:'3h 50m',url:'https://youtube.com/results?search_query=microsoft+sentinel+complete+tutorial',topic:'SIEM'},
+  ],
+  3: [
+    {title:'Digital Forensics & Incident Response',ch:'TCM Security',dur:'10h 0m',url:'https://youtube.com/results?search_query=digital+forensics+incident+response+tcm',topic:'DFIR'},
+    {title:'Advanced Malware Analysis - REMnux',ch:'Malware Traffic Analysis',dur:'6h 20m',url:'https://youtube.com/results?search_query=advanced+malware+analysis+remnux',topic:'Malware'},
+    {title:'Threat Intelligence Platform - MISP',ch:'MISP Project',dur:'3h 0m',url:'https://youtube.com/results?search_query=threat+intelligence+misp+platform',topic:'Intel'},
+    {title:'Cloud Security AWS SOC Operations',ch:'A Cloud Guru',dur:'7h 40m',url:'https://youtube.com/results?search_query=aws+cloud+security+soc+operations',topic:'Cloud'},
+    {title:'SOAR Implementation - Palo Alto XSOAR',ch:'Palo Alto Networks',dur:'4h 10m',url:'https://youtube.com/results?search_query=palo+alto+xsoar+soar+tutorial',topic:'SOAR'},
+    {title:'ATT&CK Framework Deep Dive',ch:'MITRE ATT&CK',dur:'2h 50m',url:'https://youtube.com/results?search_query=mitre+attck+framework+deep+dive',topic:'Framework'},
+  ],
+  4: [
+    {title:'SOC Architecture Design - Enterprise',ch:'SANS',dur:'6h 0m',url:'https://youtube.com/results?search_query=soc+architecture+enterprise+design',topic:'Architecture'},
+    {title:'Security Program Management',ch:'ISC2',dur:'8h 30m',url:'https://youtube.com/results?search_query=security+program+management+cisp',topic:'Management'},
+    {title:'GRC - Governance Risk Compliance',ch:'Cybrary',dur:'5h 15m',url:'https://youtube.com/results?search_query=grc+governance+risk+compliance+tutorial',topic:'GRC'},
+    {title:'Threat Modeling for Security Teams',ch:'Adam Shostack',dur:'3h 20m',url:'https://youtube.com/results?search_query=threat+modeling+stride+security',topic:'Modeling'},
+    {title:'Security Metrics & KPIs for SOC',ch:'ExtraHop',dur:'1h 45m',url:'https://youtube.com/results?search_query=security+metrics+kpi+soc+team',topic:'Metrics'},
+  ],
+  5: [
+    {title:'Zero Trust Architecture Complete Guide',ch:'Microsoft Security',dur:'5h 0m',url:'https://youtube.com/results?search_query=zero+trust+architecture+microsoft',topic:'ZTA'},
+    {title:'AI/ML in Cybersecurity Operations',ch:'Darktrace',dur:'3h 30m',url:'https://youtube.com/results?search_query=ai+ml+cybersecurity+operations+2024',topic:'AI/ML'},
+    {title:'Enterprise Security Operations at Scale',ch:'Crowdstrike',dur:'4h 20m',url:'https://youtube.com/results?search_query=enterprise+security+operations+crowdstrike',topic:'Enterprise'},
+    {title:'CISO Leadership & Strategy',ch:'ISACA',dur:'6h 0m',url:'https://youtube.com/results?search_query=ciso+leadership+strategy+course',topic:'Leadership'},
+    {title:'Global SOC Design & Operations',ch:'IBM Security',dur:'5h 30m',url:'https://youtube.com/results?search_query=global+soc+design+ibm+security',topic:'SOC Design'},
+  ]
+};
+
+const NOTES = {
+  1: `
+<h3>🔰 SOC Level 1 - Complete Study Notes</h3>
+<div class="important">L1 ka kaam: Security alerts monitor karna, tickets banana, escalate karna L2 ko. Yeh "eyes on glass" role hai.</div>
+
+<h3>1. Security Fundamentals</h3>
+<p>CIA Triad yaad rakhna: <code>Confidentiality</code> (data sirf authorized log dekhe), <code>Integrity</code> (data tamper na ho), <code>Availability</code> (system available rahe).</p>
+<ul>
+  <li><strong>Authentication vs Authorization:</strong> Auth = "kaun ho tum?", Authz = "kya kar sakte ho?"</li>
+  <li><strong>Encryption:</strong> Symmetric (AES-256), Asymmetric (RSA, ECC)</li>
+  <li><strong>Hashing:</strong> MD5 (deprecated), SHA-256, SHA-3 — password storage ke liye</li>
+</ul>
+
+<h3>2. Network Fundamentals for SOC</h3>
+<p>TCP/IP model, OSI model dono yaad hone chahiye. Key protocols:</p>
+<ul>
+  <li><code>HTTP/HTTPS</code> — Port 80/443, web traffic</li>
+  <li><code>DNS</code> — Port 53, naam se IP dhundhna (DNS exfiltration ek attack vector!)</li>
+  <li><code>SSH</code> — Port 22, secure remote access</li>
+  <li><code>RDP</code> — Port 3389, Windows remote desktop (bahut zyada attack hota yahan)</li>
+  <li><code>SMB</code> — Port 445, Windows file sharing (WannaCry yahan tha!)</li>
+</ul>
+<div class="highlight">🚨 Alert: Koi bhi unusual port pe activity, ya known ports pe unusual behavior = investigate karo!</div>
+
+<h3>3. SIEM Basics (Splunk/QRadar/Sentinel)</h3>
+<p>SIEM = Security Information and Event Management. Sare logs ek jagah laata hai, correlate karta hai.</p>
+<ul>
+  <li><strong>Log sources:</strong> Firewall, IDS/IPS, Windows Event Logs, Linux syslog, Web proxy</li>
+  <li><strong>Key Windows Event IDs:</strong> <code>4624</code> (Login success), <code>4625</code> (Login fail), <code>4648</code> (Explicit credentials), <code>4688</code> (Process created), <code>4720</code> (User account created)</li>
+  <li><strong>Splunk basic query:</strong> <code>index=windows EventCode=4625 | stats count by user</code></li>
+</ul>
+
+<h3>4. Alert Triage Process</h3>
+<p>L1 ka main kaam yeh hai. Step-by-step:</p>
+<ul>
+  <li>1️⃣ Alert receive karo SIEM se</li>
+  <li>2️⃣ False positive check karo (IP reputation, context dekho)</li>
+  <li>3️⃣ Severity assign karo (P1/P2/P3/P4)</li>
+  <li>4️⃣ Ticket create karo (ServiceNow/Jira)</li>
+  <li>5️⃣ L2 ko escalate karo agar needed</li>
+</ul>
+
+<h3>5. Common Attack Types (Basics)</h3>
+<ul>
+  <li><strong>Phishing:</strong> Email se user ko fool karke credentials lena</li>
+  <li><strong>Brute Force:</strong> Multiple failed logins → 4625 event ka storm</li>
+  <li><strong>DDoS:</strong> Network bandwidth flood, latency spike</li>
+  <li><strong>SQL Injection:</strong> Web app ke DB query mein malicious input</li>
+</ul>
+<div class="important">📌 Resources: TryHackMe SOC Level 1 path, Blue Team Labs Online, Splunk BOTS (Boss of the SOC)</div>`,
+
+  2: `
+<h3>🔵 SOC Level 2 - Advanced Study Notes</h3>
+<div class="important">L2 ka kaam: Deep investigation, incident handling, threat hunting. L1 se escalate cases handle karna.</div>
+
+<h3>1. Incident Response Framework (NIST/SANS)</h3>
+<p>NIST IR lifecycle: <code>Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned</code></p>
+<ul>
+  <li><strong>Preparation:</strong> Playbooks ready, tools configured, team trained</li>
+  <li><strong>Detection:</strong> SIEM alerts, threat intel feeds, EDR alerts</li>
+  <li><strong>Containment:</strong> Isolate machine, block IP, disable user</li>
+  <li><strong>Eradication:</strong> Malware remove, backdoor close</li>
+  <li><strong>Recovery:</strong> Restore from backup, monitor for recurrence</li>
+</ul>
+
+<h3>2. Advanced SIEM - Splunk SPL</h3>
+<ul>
+  <li><code>index=* sourcetype=* | stats count by sourcetype</code> — overview</li>
+  <li><code>index=windows EventCode=4688 | where ParentImage="*cmd.exe*"</code> — suspicious process</li>
+  <li><code>| iplocation src_ip | geostats count</code> — IP geolocation</li>
+  <li>Correlation searches, lookups, dashboards banana</li>
+</ul>
+
+<h3>3. Network Forensics</h3>
+<p>Wireshark, Zeek, NetworkMiner se packet analysis:</p>
+<ul>
+  <li>TCP 3-way handshake anomalies</li>
+  <li>Beaconing behavior (C2 communication)</li>
+  <li>Data exfiltration patterns (DNS tunneling, HTTP POST)</li>
+  <li>Lateral movement indicators (SMB scans, RDP hops)</li>
+</ul>
+<div class="highlight">🔍 Tool: NetworkMiner se credentials, files, images extract kar sakte hain PCAP se!</div>
+
+<h3>4. Malware Analysis Basics</h3>
+<ul>
+  <li><strong>Static Analysis:</strong> File hash check (VirusTotal), strings extract, PE header analysis</li>
+  <li><strong>Dynamic Analysis:</strong> Sandbox mein run karo (Any.run, Joe Sandbox, Cuckoo)</li>
+  <li><strong>Key indicators:</strong> Registry changes, network connections, file drops, process injection</li>
+</ul>
+
+<h3>5. Threat Hunting Methodology</h3>
+<p>Hypothesis-driven hunting: "Agar attacker ne X kiya hoga toh Y evidence hoga"</p>
+<ul>
+  <li>MITRE ATT&CK framework use karo tactics map karne ke liye</li>
+  <li>LOLBins abuse dekhna (PowerShell, WMI, certutil, regsvr32)</li>
+  <li>Baseline se deviate hone wala behavior</li>
+</ul>`,
+
+  3: `
+<h3>🟡 SOC Level 3 - Senior Analyst Notes</h3>
+<div class="important">L3 = Expert. Aap ab complex incidents handle karte ho, threat intel produce karte ho, aur junior team ko mentor karte ho.</div>
+
+<h3>1. Digital Forensics (DFIR)</h3>
+<ul>
+  <li><strong>Memory Forensics:</strong> Volatility3 — RAM dump se processes, network connections, credentials extract</li>
+  <li><strong>Disk Forensics:</strong> Autopsy, FTK — deleted files, timeline, browser history</li>
+  <li><strong>Windows Artifacts:</strong> Prefetch, Amcache, ShimCache, UserAssist, LNK files, Jump Lists</li>
+  <li><strong>Chain of Custody:</strong> Evidence integrity maintain karna, MD5/SHA256 hashes</li>
+</ul>
+<div class="highlight">🔬 Volatility command: <code>vol.py -f memory.dmp windows.pslist</code> → running processes list</div>
+
+<h3>2. Advanced Malware Analysis</h3>
+<ul>
+  <li><strong>Reverse Engineering:</strong> Ghidra, IDA Pro se disassembly/decompilation</li>
+  <li><strong>Anti-analysis bypass:</strong> Anti-VM, anti-debugging tricks pehchanna</li>
+  <li><strong>Packing:</strong> UPX, custom packers — unpack karna seekho</li>
+  <li><strong>Shellcode analysis:</strong> x86/x64 assembly basics</li>
+</ul>
+
+<h3>3. Threat Intelligence</h3>
+<ul>
+  <li><strong>TI Cycle:</strong> Direction → Collection → Processing → Analysis → Dissemination → Feedback</li>
+  <li><strong>IOC types:</strong> IP, domain, hash, URL, email, file path</li>
+  <li><strong>Platforms:</strong> MISP, OpenCTI, ThreatConnect, Recorded Future</li>
+  <li><strong>Frameworks:</strong> STIX/TAXII (sharing format), Diamond Model, Kill Chain</li>
+</ul>
+
+<h3>4. Cloud Security Operations</h3>
+<ul>
+  <li><strong>AWS:</strong> CloudTrail (API logs), GuardDuty (threat detection), SecurityHub, VPC Flow Logs</li>
+  <li><strong>Azure:</strong> Microsoft Defender for Cloud, Sentinel, Activity Logs</li>
+  <li><strong>GCP:</strong> Security Command Center, Cloud Audit Logs</li>
+  <li>Container security: Docker, Kubernetes cluster threats</li>
+</ul>
+
+<h3>5. SOAR Engineering</h3>
+<p>SOAR = Security Orchestration, Automation and Response</p>
+<ul>
+  <li><strong>Platforms:</strong> Palo Alto XSOAR, Splunk SOAR, IBM Resilient</li>
+  <li>Playbook design karna Python/YAML mein</li>
+  <li>API integrations: VirusTotal, Shodan, EDR tools</li>
+  <li>Auto-triage, auto-containment workflows</li>
+</ul>`,
+
+  4: `
+<h3>🟠 SOC Level 4 - Lead/Manager Notes</h3>
+<div class="important">L4 = Team lead. Technical + managerial skills dono chahiye. Aap SOC ki strategy banate ho.</div>
+
+<h3>1. SOC Architecture Design</h3>
+<ul>
+  <li>Tiered SOC model (L1/L2/L3 responsibilities define karna)</li>
+  <li>Tech stack selection: SIEM, EDR, SOAR, TIP integration</li>
+  <li>Coverage model: 24x7 follow-the-sun vs shift-based</li>
+  <li>Data ingestion planning — log sources, normalization, cost</li>
+</ul>
+
+<h3>2. Compliance & GRC</h3>
+<ul>
+  <li><strong>Frameworks:</strong> ISO 27001, NIST CSF, SOC 2 Type II, PCI-DSS, HIPAA</li>
+  <li><strong>India specific:</strong> CERT-In guidelines, IT Act 2000, RBI cyber guidelines, SEBI</li>
+  <li>Risk assessment, risk register, treatment plans</li>
+  <li>Audit management, evidence collection</li>
+</ul>
+
+<h3>3. Security Metrics & KPIs</h3>
+<ul>
+  <li>MTTD (Mean Time to Detect)</li>
+  <li>MTTR (Mean Time to Respond)</li>
+  <li>False Positive Rate, True Positive Rate</li>
+  <li>Alert volume trends, SLA compliance</li>
+  <li>Team performance metrics, training coverage</li>
+</ul>
+
+<h3>4. Threat Modeling</h3>
+<ul>
+  <li><strong>STRIDE:</strong> Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation</li>
+  <li><strong>PASTA:</strong> Process Attack Simulation and Threat Analysis</li>
+  <li>Attack surface mapping, data flow diagrams</li>
+</ul>`,
+
+  5: `
+<h3>🔴 SOC Level 5 - Architect/Director Notes</h3>
+<div class="important">L5 = Enterprise security architect. Board-level communication, global strategy, next-gen security design.</div>
+
+<h3>1. Zero Trust Architecture</h3>
+<ul>
+  <li>Never trust, always verify principle</li>
+  <li>Microsegmentation, identity-centric security</li>
+  <li>ZTNA vendors: Zscaler, Palo Alto Prisma, Cloudflare Access</li>
+  <li>Implementation roadmap for enterprise</li>
+</ul>
+
+<h3>2. AI/ML in Security Operations</h3>
+<ul>
+  <li>ML-based anomaly detection (UEBA)</li>
+  <li>NLP for threat intel processing</li>
+  <li>Automated threat hunting with AI</li>
+  <li>Adversarial ML attacks on security systems</li>
+  <li>LLM integration in SOC workflows (ChatGPT, Claude for IR)</li>
+</ul>
+
+<h3>3. Enterprise Security Program</h3>
+<ul>
+  <li>Security budget planning, ROI justification</li>
+  <li>Board reporting — business language mein risk explain karna</li>
+  <li>Vendor management, contract security clauses</li>
+  <li>M&A security due diligence</li>
+  <li>Global SOC operations management</li>
+</ul>
+
+<h3>4. Future of SOC</h3>
+<ul>
+  <li>XDR (Extended Detection and Response)</li>
+  <li>Autonomous SOC — AI-driven incident resolution</li>
+  <li>Quantum computing threats to encryption</li>
+  <li>Supply chain security</li>
+</ul>`
+};
+
+const TOOLS_DATA = {
+  1: [
+    {icon:'📊', name:'Splunk', cat:'SIEM', desc:'Industry #1 SIEM. Log search, dashboards, alerts. Free trial available.', url:'https://www.splunk.com/en_us/training.html'},
+    {icon:'🔷', name:'QRadar', cat:'SIEM', desc:'IBM ka SIEM solution. Fortune 500 companies use karti hain.', url:'https://www.ibm.com/qradar'},
+    {icon:'🔵', name:'MS Sentinel', cat:'SIEM', desc:'Microsoft ka cloud-native SIEM + SOAR platform.', url:'https://azure.microsoft.com/en-us/products/microsoft-sentinel'},
+    {icon:'🦅', name:'Wazuh', cat:'SIEM/EDR', desc:'Free, open-source SIEM/HIDS. Perfect for learning.', url:'https://wazuh.com'},
+    {icon:'🎫', name:'ServiceNow', cat:'Ticketing', desc:'Industry standard ITSM tool for incident tickets.', url:'https://www.servicenow.com'},
+    {icon:'🦠', name:'VirusTotal', cat:'Threat Intel', desc:'Hash, URL, domain check karo. L1 must-know tool.', url:'https://virustotal.com'},
+    {icon:'🌐', name:'Shodan', cat:'OSINT', desc:'Internet-connected devices search engine.', url:'https://shodan.io'},
+    {icon:'📧', name:'MXToolbox', cat:'Email Security', desc:'Email headers, DNS, blacklist check.', url:'https://mxtoolbox.com'},
+  ],
+  2: [
+    {icon:'🦈', name:'Wireshark', cat:'Network Forensics', desc:'Packet capture and analysis. Must-learn tool.', url:'https://wireshark.org'},
+    {icon:'🎯', name:'Elastic SIEM', cat:'SIEM', desc:'ELK Stack based SIEM. Free and powerful.', url:'https://elastic.co/security'},
+    {icon:'🔍', name:'Zeek (Bro)', cat:'Network Analysis', desc:'Network traffic analyzer for threat hunting.', url:'https://zeek.org'},
+    {icon:'🏃', name:'Any.run', cat:'Sandbox', desc:'Interactive malware sandbox. Real-time analysis.', url:'https://any.run'},
+    {icon:'⚔️', name:'CrowdStrike', cat:'EDR', desc:'Market leader EDR. Falcon platform.', url:'https://crowdstrike.com'},
+    {icon:'🛡️', name:'SentinelOne', cat:'EDR', desc:'AI-powered EDR/XDR platform.', url:'https://sentinelone.com'},
+    {icon:'🔗', name:'MITRE ATT&CK', cat:'Framework', desc:'Adversary tactics & techniques knowledge base.', url:'https://attack.mitre.org'},
+    {icon:'🧪', name:'Velociraptor', cat:'DFIR', desc:'Endpoint visibility and collection tool.', url:'https://docs.velociraptor.app'},
+  ],
+  3: [
+    {icon:'🧠', name:'Volatility3', cat:'Memory Forensics', desc:'RAM dump analysis — processes, network, creds.', url:'https://volatilityfoundation.org'},
+    {icon:'🔬', name:'Ghidra', cat:'Reverse Eng.', desc:'NSA ka free reverse engineering tool.', url:'https://ghidra-sre.org'},
+    {icon:'🕵️', name:'Autopsy', cat:'Disk Forensics', desc:'Digital forensics platform. Disk image analysis.', url:'https://sleuthkit.org/autopsy'},
+    {icon:'🌍', name:'MISP', cat:'Threat Intel', desc:'Malware Information Sharing Platform.', url:'https://www.misp-project.org'},
+    {icon:'🤖', name:'XSOAR', cat:'SOAR', desc:'Palo Alto ka SOAR platform. Playbook automation.', url:'https://xsoar.pan.dev'},
+    {icon:'☁️', name:'AWS GuardDuty', cat:'Cloud Security', desc:'AWS managed threat detection service.', url:'https://aws.amazon.com/guardduty'},
+    {icon:'📡', name:'Recorded Future', cat:'Threat Intel', desc:'Premium threat intelligence platform.', url:'https://recordedfuture.com'},
+    {icon:'🦆', name:'REMnux', cat:'Malware Analysis', desc:'Linux toolkit for malware analysis.', url:'https://remnux.org'},
+  ],
+  4: [
+    {icon:'🏗️', name:'Archer GRC', cat:'GRC', desc:'RSA Archer — enterprise GRC platform.', url:'https://www.archerirm.com'},
+    {icon:'📈', name:'SecurityScorecard', cat:'Risk Mgmt', desc:'Third-party cyber risk scoring.', url:'https://securityscorecard.com'},
+    {icon:'🔑', name:'CyberArk', cat:'PAM', desc:'Privileged Access Management — enterprise standard.', url:'https://cyberark.com'},
+    {icon:'📊', name:'Splunk ES', cat:'SIEM', desc:'Splunk Enterprise Security — full SOC platform.', url:'https://splunk.com'},
+    {icon:'🎯', name:'Nessus', cat:'Vuln Mgmt', desc:'Tenable Nessus — vulnerability scanner.', url:'https://tenable.com'},
+    {icon:'🔐', name:'Sailpoint', cat:'IAM', desc:'Identity governance and administration.', url:'https://sailpoint.com'},
+  ],
+  5: [
+    {icon:'🛡️', name:'Zscaler', cat:'Zero Trust', desc:'Cloud-native ZTNA and SSE platform.', url:'https://zscaler.com'},
+    {icon:'🌐', name:'Palo Alto Prisma', cat:'Cloud Security', desc:'Full-stack cloud security platform.', url:'https://paloaltonetworks.com'},
+    {icon:'🤖', name:'Darktrace', cat:'AI Security', desc:'AI-powered autonomous threat detection.', url:'https://darktrace.com'},
+    {icon:'⚡', name:'Microsoft XDR', cat:'XDR', desc:'Microsoft Defender XDR suite — extended detection.', url:'https://microsoft.com/security'},
+    {icon:'🌊', name:'ExtraHop', cat:'NDR', desc:'Network Detection & Response using ML.', url:'https://extrahop.com'},
+    {icon:'🔮', name:'Vectra AI', cat:'NDR/AI', desc:'AI-driven network threat detection.', url:'https://vectra.ai'},
+  ]
+};
+
+const LABS = {
+  1: [
+    {title:'Splunk BOTS v1 - Security Investigation',diff:'easy',desc:'Boss of the SOC dataset se basic investigation practice karo.',tools:['Splunk','SPL Queries'],th:'https://tryhackme.com/room/bpsplunk',hh:'https://hackthebox.com',bl:'https://blueteamlabs.online'},
+    {title:'Network Intrusion Analysis',diff:'easy',desc:'Wireshark se malicious traffic identify karo.',tools:['Wireshark','NetworkMiner'],th:'https://tryhackme.com/room/networkintrusion',hh:'',bl:'https://blueteamlabs.online/home/investigation/5'},
+    {title:'Phishing Email Analysis',diff:'easy',desc:'Malicious email headers, links, attachments analyze karo.',tools:['MXToolbox','PhishTool','VirusTotal'],th:'https://tryhackme.com/room/phishingemails1',hh:'',bl:''},
+    {title:'Windows Event Log Investigation',diff:'med',desc:'Suspicious Windows events detect karo — brute force, lateral movement.',tools:['Event Viewer','Splunk','Sigma Rules'],th:'https://tryhackme.com/room/windowseventlogs',hh:'https://hackthebox.com',bl:''},
+  ],
+  2: [
+    {title:'DFIR - Ransomware Incident',diff:'med',desc:'Ransomware attack ka full incident response karo end-to-end.',tools:['Splunk','EDR','Wireshark'],th:'https://tryhackme.com/room/btincidenthandlingwithsplunk',hh:'https://hackthebox.com/challenges',bl:'https://blueteamlabs.online/home/investigation/7'},
+    {title:'Threat Hunting - C2 Beaconing',diff:'med',desc:'Network traffic mein C2 communication patterns dhundho.',tools:['Zeek','Wireshark','Elastic'],th:'https://tryhackme.com/room/threathunting',hh:'',bl:''},
+    {title:'Malware Sandbox Analysis',diff:'hard',desc:'Any.run mein malware sample analyze karo, IOCs extract karo.',tools:['Any.run','VirusTotal','Cuckoo'],th:'',hh:'',bl:'https://blueteamlabs.online/home/investigation/6'},
+    {title:'Microsoft Sentinel - Full Investigation',diff:'hard',desc:'Azure Sentinel mein real incident investigate karo.',tools:['MS Sentinel','KQL','Azure AD'],th:'https://tryhackme.com/room/microsoftsentinel',hh:'',bl:''},
+  ],
+  3: [
+    {title:'Memory Forensics - Volatility3',diff:'hard',desc:'RAM dump se attacker activity reconstruct karo.',tools:['Volatility3','Rekall','YARA'],th:'https://tryhackme.com/room/volatility',hh:'https://hackthebox.com/challenges',bl:''},
+    {title:'Malware RE - Ghidra Analysis',diff:'hard',desc:'Unknown malware sample ko reverse engineer karo Ghidra se.',tools:['Ghidra','x64dbg','PE-bear'],th:'https://tryhackme.com/room/ghidra',hh:'https://hackthebox.com/challenges',bl:''},
+    {title:'Threat Intel - MISP Setup & IoC Sharing',diff:'med',desc:'MISP instance setup karo, threat intel share karo STIX/TAXII se.',tools:['MISP','STIX/TAXII','OpenCTI'],th:'',hh:'',bl:''},
+    {title:'Cloud IR - AWS Compromise',diff:'hard',desc:'Compromised AWS account ka investigation karo CloudTrail logs se.',tools:['AWS CloudTrail','GuardDuty','Athena'],th:'https://tryhackme.com/room/awsincidentresponse',hh:'',bl:''},
+  ],
+  4: [
+    {title:'SOC Architecture - Design Exercise',diff:'med',desc:'Enterprise SOC design document banana — tools, processes, team structure.',tools:['Visio','GRC Tools','SIEM'],th:'',hh:'',bl:''},
+    {title:'Compliance Audit - ISO 27001',diff:'hard',desc:'Mock ISO 27001 audit conduct karo, gaps identify karo.',tools:['Archer GRC','Excel','Nessus'],th:'',hh:'',bl:''},
+  ],
+  5: [
+    {title:'Zero Trust Implementation Plan',diff:'hard',desc:'Enterprise ZTA migration roadmap design karo.',tools:['Zscaler','CrowdStrike','Azure AD'],th:'',hh:'',bl:''},
+    {title:'AI-Powered SOC - Build Detection Model',diff:'hard',desc:'Python se ML-based anomaly detection model build karo log data pe.',tools:['Python','Scikit-learn','ELK'],th:'',hh:'',bl:''},
+  ]
+};
+
+const CERTS = [
+  {icon:'🏅',name:'CompTIA Security+',org:'CompTIA',level:'L1 Foundation',url:'https://comptia.org/certifications/security'},
+  {icon:'🔵',name:'CompTIA CySA+',org:'CompTIA',level:'L2 Analyst',url:'https://comptia.org/certifications/cybersecurity-analyst'},
+  {icon:'🎖️',name:'CEH (Certified Ethical Hacker)',org:'EC-Council',level:'L2-L3',url:'https://eccouncil.org/programs/certified-ethical-hacker-ceh'},
+  {icon:'🏆',name:'GCIA - GIAC Intrusion Analyst',org:'SANS/GIAC',level:'L2-L3',url:'https://giac.org/certifications/intrusion-analyst-gcia'},
+  {icon:'🛡️',name:'GCIH - Incident Handler',org:'SANS/GIAC',level:'L2-L3',url:'https://giac.org/certifications/certified-incident-handler-gcih'},
+  {icon:'⭐',name:'GCFE - Forensic Examiner',org:'SANS/GIAC',level:'L3',url:'https://giac.org/certifications/forensic-examiner-gcfe'},
+  {icon:'🔬',name:'GREM - Malware Analyst',org:'SANS/GIAC',level:'L3',url:'https://giac.org/certifications/reverse-engineering-malware-grem'},
+  {icon:'☁️',name:'AWS Security Specialty',org:'Amazon AWS',level:'L3-L4',url:'https://aws.amazon.com/certification/certified-security-specialty'},
+  {icon:'🌐',name:'CISSP',org:'ISC2',level:'L4-L5',url:'https://isc2.org/certifications/cissp'},
+  {icon:'🎯',name:'OSCP',org:'Offensive Security',level:'L3 (Red Team)',url:'https://offensive-security.com/pwk-oscp'},
+  {icon:'📊',name:'CISM',org:'ISACA',level:'L4-L5 Mgmt',url:'https://isaca.org/credentialing/cism'},
+  {icon:'🔐',name:'CISA',org:'ISACA',level:'L4 Audit',url:'https://isaca.org/credentialing/cisa'},
+];
+
+const ROADMAP_DATA = [
+  {title:'Month 1-2: Foundation', desc:'CompTIA Security+, Network basics (TCP/IP, OSI), Linux command line, Windows fundamentals. TryHackMe Pre-Security path complete karo.', done:false},
+  {title:'Month 3-4: L1 SOC Skills', desc:'Splunk basics (free training), SIEM concepts, log analysis, alert triage. TryHackMe SOC Level 1 path complete karo.', done:false},
+  {title:'Month 5-6: Get L1 Job', desc:'Job apply karo at: Infosys, Wipro, TCS, Accenture. Portfolio: TryHackMe/HTB badges, Splunk certification, GitHub with SIEM projects.', done:false},
+  {title:'Month 7-12: L2 Skills', desc:'Incident Response (NIST framework), Network forensics (Wireshark), Malware basics (Any.run), EDR tools (CrowdStrike/SentinelOne). CySA+ certification.', done:false},
+  {title:'Year 2: Advanced Skills', desc:'DFIR deep dive, Memory forensics (Volatility), Advanced malware analysis (Ghidra), Threat intelligence (MISP), SOAR (XSOAR). GCIH/GCIA certification.', done:false},
+  {title:'Year 2-3: Cloud & Specialization', desc:'AWS/Azure security, Cloud IR, Container security, GREM (malware), GCFE (forensics), or OSCP (red team basics).', done:false},
+  {title:'Year 3-5: Senior & Lead', desc:'CISSP certification, SOC management, Compliance (ISO 27001), Threat modeling, Team leadership. Build SOC architecture skills.', done:false},
+  {title:'Year 5+: Architect Level', desc:'CISM/CISO track, Zero Trust architecture, AI/ML security, Enterprise strategy, Board presentations. Top companies: Microsoft, CrowdStrike, Palo Alto.', done:false},
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let progress = JSON.parse(localStorage.getItem('soc_progress') || '{}');
+// localStorage not available in artifacts - use in-memory
+let progressMemory = {};
+let currentLevel = null;
+let xp = 0;
+
+function saveProgress(key, val) {
+  progressMemory[key] = val;
+  updateProgressUI();
+}
+
+function getProgress(key) {
+  return progressMemory[key];
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.onload = () => {
+  renderLevelsGrid();
+  renderLevelsBar();
+  renderRoadmap();
+  renderAllTools();
+  renderCerts();
+  updateProgressUI();
+};
+
+function renderLevelsGrid() {
+  const g = document.getElementById('levelsGrid');
+  g.innerHTML = LEVELS.map(l => {
+    const done = l.modules.filter((m,i) => getProgress(`l${l.id}_m${i}`)).length;
+    const pct = Math.round((done/l.modules.length)*100);
+    return `<div class="level-card" data-level="${l.id}" onclick="openLevel(${l.id})" style="--lc:${l.color}">
+      <div class="lc-head">
+        <div class="lc-badge" style="background:${l.color}22;color:${l.color};border:1px solid ${l.color}44">${l.shortTitle}</div>
+        <div class="lc-progress-text">${done}/${l.modules.length}</div>
+      </div>
+      <div class="lc-title">${l.title.split('—')[1]?.trim() || l.title}</div>
+      <div class="lc-desc">${l.desc}</div>
+      <div class="lc-progress-bar"><div class="lc-progress-fill" style="width:${pct}%;background:${l.color}"></div></div>
+      <div class="lc-meta">${l.tags.map(t=>`<span class="lc-tag">${t}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderLevelsBar() {
+  const b = document.getElementById('levelsBar');
+  b.innerHTML = LEVELS.map(l => {
+    const done = l.modules.filter((m,i) => getProgress(`l${l.id}_m${i}`)).length;
+    const pct = Math.round((done/l.modules.length)*100);
+    return `<div>
+      <div class="lbar"><div class="lbar-fill" style="width:${pct}%;background:${l.color}"></div></div>
+      <div class="lbar-label">${l.shortTitle}</div>
+    </div>`;
+  }).join('');
+}
+
+function updateProgressUI() {
+  let total = 0, done = 0;
+  LEVELS.forEach(l => {
+    total += l.modules.length;
+    l.modules.forEach((m,i) => { if(getProgress(`l${l.id}_m${i}`)) done++; });
+  });
+  xp = done * 200;
+  document.getElementById('totalDone').textContent = done;
+  document.getElementById('totalModules').textContent = total;
+  document.getElementById('totalPct').textContent = Math.round((done/total)*100) + '%';
+  document.getElementById('xpBadge').textContent = `⚡ ${xp} XP`;
+  renderLevelsBar();
+  renderLevelsGrid();
+}
+
+function openLevel(id) {
+  currentLevel = id;
+  const l = LEVELS.find(x=>x.id===id);
+  const ca = document.getElementById('contentArea');
+  ca.className = 'section content-area visible';
+  document.getElementById('levelTitle').innerHTML = `<span style="color:${l.color}">${l.title}</span>`;
+  document.getElementById('levelDesc').textContent = l.fullDesc;
+  // Reset tabs
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.tab-btn').classList.add('active');
+  document.getElementById('tab-overview').classList.add('active');
+  
+  renderTabContent(id, 'overview');
+  renderTabContent(id, 'videos');
+  renderTabContent(id, 'notes');
+  renderTabContent(id, 'tools');
+  renderTabContent(id, 'labs');
+  renderTabContent(id, 'modules');
+
+  ca.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function renderTabContent(lid, tab) {
+  const l = LEVELS.find(x=>x.id===lid);
+  const el = document.getElementById('tab-'+tab);
+  if(!el) return;
+
+  if(tab === 'overview') {
+    el.innerHTML = `<div class="modules-grid">
+      <div class="sidebar">
+        <div class="sidebar-title">📚 MODULES (${l.modules.length})</div>
+        ${l.modules.map((m,i) => {
+          const done = getProgress(`l${lid}_m${i}`);
+          return `<div class="topic-item ${done?'completed':''}" onclick="toggleModule(${lid},${i})">
+            <div class="ti-icon">${done?'✅':'📌'}</div>
+            <div class="ti-text">
+              <div class="ti-name">${m}</div>
+              <div class="ti-sub">Module ${i+1}</div>
+            </div>
+            ${done?'<div class="ti-check">✓</div>':''}
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="main-content">
+        <div class="content-card">
+          <div class="cc-header">
+            <div class="cc-title">🎯 Level Overview</div>
+            <div class="cc-badge" style="background:${l.color}22;color:${l.color};border:1px solid ${l.color}33">${l.tags[2]}</div>
+          </div>
+          <div class="cc-body">
+            <div style="font-size:15px;line-height:1.8;color:var(--text2)">
+              <p>${l.fullDesc}</p>
+              <br>
+              <p><strong style="color:var(--text)">Key Roles:</strong> SOC Analyst, Security Analyst, Information Security Analyst</p>
+              <p><strong style="color:var(--text)">Experience:</strong> ${l.tags[1]}</p>
+              <p><strong style="color:var(--text)">Salary Range:</strong> ${l.tags[2]}</p>
+            </div>
+            <br>
+            <button class="complete-btn ${l.modules.every((m,i)=>getProgress(`l${lid}_m${i}`))?'done':''}" 
+              onclick="completeAllModules(${lid})">
+              ${l.modules.every((m,i)=>getProgress(`l${lid}_m${i}`)) ? '✅ LEVEL COMPLETE!' : '🎯 MARK ALL COMPLETE'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  else if(tab === 'videos') {
+    const vids = VIDEOS[lid] || [];
+    el.innerHTML = `<div class="content-card">
+      <div class="cc-header">
+        <div class="cc-title">🎥 Video Resources</div>
+        <div class="cc-badge" style="background:rgba(255,0,0,0.1);color:#ff4444;border:1px solid rgba(255,0,0,0.2)">YOUTUBE</div>
+      </div>
+      <div class="cc-body">
+        <div class="video-grid">
+          ${vids.map(v=>`<div class="video-card" onclick="window.open('${v.url}','_blank')">
+            <div class="video-thumb">
+              <div class="play-btn">▶</div>
+              <div class="video-label">${v.dur}</div>
+            </div>
+            <div class="video-info">
+              <div class="video-title">${v.title}</div>
+              <div class="video-meta">
+                <span>📺 ${v.ch}</span>
+                <span style="background:rgba(0,212,255,0.08);padding:1px 6px;border-radius:3px;font-size:10px">${v.topic}</span>
+              </div>
+              <div style="margin-top:8px">
+                <a href="${v.url}" target="_blank" class="yt-link">▶ Watch on YouTube →</a>
+              </div>
+            </div>
+          </div>`).join('')}
+        </div>
+        <br>
+        <div style="background:rgba(255,0,0,0.05);border:1px solid rgba(255,0,0,0.15);border-radius:10px;padding:15px;font-size:13px;color:var(--text2)">
+          💡 <strong>Tip:</strong> YouTube pe "SOC Analyst Level ${lid}" ya specific tool search karo for more content. Channels: TCM Security, TryHackMe, SANS, NetworkChuck, John Hammond dekhna zaroor.
+        </div>
+      </div>
+    </div>`;
+  }
+
+  else if(tab === 'notes') {
+    el.innerHTML = `<div class="content-card">
+      <div class="cc-header">
+        <div class="cc-title">📝 Study Notes</div>
+        <div class="cc-badge" style="background:rgba(0,212,255,0.08);color:var(--primary);border:1px solid var(--border)">LEVEL ${lid}</div>
+      </div>
+      <div class="cc-body">
+        <div class="notes-content">${NOTES[lid]||'Notes loading...'}</div>
+      </div>
+    </div>`;
+  }
+
+  else if(tab === 'tools') {
+    const tools = TOOLS_DATA[lid] || [];
+    el.innerHTML = `<div class="content-card">
+      <div class="cc-header">
+        <div class="cc-title">🔧 Tools for Level ${lid}</div>
+        <div class="cc-badge" style="background:rgba(57,255,20,0.08);color:var(--accent);border:1px solid rgba(57,255,20,0.2)">${tools.length} TOOLS</div>
+      </div>
+      <div class="cc-body">
+        <div class="tools-grid">
+          ${tools.map(t=>`<div class="tool-card">
+            <div class="tool-icon">${t.icon}</div>
+            <div class="tool-name">${t.name}</div>
+            <div class="tool-cat">${t.cat}</div>
+            <div class="tool-desc">${t.desc}</div>
+            <a href="${t.url}" target="_blank" class="tool-link">🔗 Learn More</a>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  else if(tab === 'labs') {
+    const labs = LABS[lid] || [];
+    el.innerHTML = `<div class="content-card">
+      <div class="cc-header">
+        <div class="cc-title">🧪 Hands-On Practice Labs</div>
+        <div class="cc-badge" style="background:rgba(245,158,11,0.1);color:var(--l3);border:1px solid rgba(245,158,11,0.2)">REAL PRACTICE</div>
+      </div>
+      <div class="cc-body">
+        <div style="margin-bottom:20px;font-size:13px;color:var(--text2)">
+          🎯 <strong>Practice platforms:</strong> TryHackMe, HackTheBox, Blue Team Labs Online, SANS NetWars, Immersive Labs
+        </div>
+        <div class="lab-grid">
+          ${labs.map(lab=>`<div class="lab-card">
+            <div class="lab-header">
+              <div class="lab-title">${lab.title}</div>
+              <div class="lab-diff diff-${lab.diff}">${lab.diff.toUpperCase()}</div>
+            </div>
+            <div class="lab-desc">${lab.desc}</div>
+            <div class="lab-tools">${lab.tools.map(t=>`<span class="lab-tool-tag">${t}</span>`).join('')}</div>
+            <div class="lab-links">
+              ${lab.th?`<a href="${lab.th}" target="_blank" class="lab-link tryh">TryHackMe</a>`:''}
+              ${lab.hh?`<a href="${lab.hh}" target="_blank" class="lab-link hack">HackTheBox</a>`:''}
+              ${lab.bl?`<a href="${lab.bl}" target="_blank" class="lab-link blue">BTLO</a>`:''}
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  else if(tab === 'modules') {
+    el.innerHTML = `<div class="content-card">
+      <div class="cc-header">
+        <div class="cc-title">📚 All Modules</div>
+        <div class="cc-badge" style="background:rgba(0,212,255,0.08);color:var(--primary);border:1px solid var(--border)">${l.modules.length} MODULES</div>
+      </div>
+      <div class="cc-body">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${l.modules.map((m,i) => {
+            const done = getProgress(`l${lid}_m${i}`);
+            return `<div style="display:flex;align-items:center;gap:15px;padding:14px;background:var(--bg3);border:1px solid ${done?'rgba(57,255,20,0.2)':'var(--border)'};border-radius:10px;cursor:pointer;transition:all 0.2s" onclick="toggleModule(${lid},${i})">
+              <div style="width:36px;height:36px;border-radius:8px;background:${done?'rgba(57,255,20,0.15)':'rgba(0,212,255,0.08)'};display:flex;align-items:center;justify-content:center;font-size:16px">${done?'✅':'📌'}</div>
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:700;color:${done?'var(--accent)':'var(--text)'}">${m}</div>
+                <div style="font-size:12px;color:var(--text2)">Module ${i+1} of ${l.modules.length}</div>
+              </div>
+              <div style="font-size:12px;font-family:Space Mono,monospace;color:${done?'var(--accent)':'var(--text2)'}">${done?'DONE':'PENDING'}</div>
+            </div>`;
+          }).join('')}
+        </div>
+        <br>
+        <button class="complete-btn" onclick="completeAllModules(${lid})">🎯 MARK ALL COMPLETE</button>
+      </div>
+    </div>`;
+  }
+}
+
+function toggleModule(lid, idx) {
+  const key = `l${lid}_m${idx}`;
+  const cur = getProgress(key);
+  saveProgress(key, !cur);
+  if(!cur) showToast(`✅ Module complete! +200 XP`);
+  if(currentLevel === lid) {
+    renderTabContent(lid, 'overview');
+    renderTabContent(lid, 'modules');
+  }
+}
+
+function completeAllModules(lid) {
+  const l = LEVELS.find(x=>x.id===lid);
+  l.modules.forEach((m,i) => saveProgress(`l${lid}_m${i}`, true));
+  showToast(`🏆 Level ${lid} Complete! +${l.xp} XP!`);
+  if(currentLevel === lid) {
+    renderTabContent(lid, 'overview');
+    renderTabContent(lid, 'modules');
+  }
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+function scrollToLevels() {
+  document.getElementById('levels-section').scrollIntoView({behavior:'smooth'});
+}
+
+function showPage(name) {
+  ['home','roadmap','tools','certs'].forEach(p => {
+    document.getElementById('page-'+p).style.display = p===name?'block':'none';
+  });
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function renderRoadmap() {
+  document.getElementById('roadmapContent').innerHTML = ROADMAP_DATA.map((r,i) => `
+    <div class="rm-item">
+      <div class="rm-line">
+        <div class="rm-dot ${r.done?'done':''}"></div>
+        ${i<ROADMAP_DATA.length-1?'<div class="rm-connector"></div>':''}
+      </div>
+      <div class="rm-content">
+        <div class="rm-title">${r.title}</div>
+        <div class="rm-desc">${r.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAllTools() {
+  const all = Object.values(TOOLS_DATA).flat();
+  document.getElementById('allToolsGrid').innerHTML = all.map(t=>`
+    <div class="tool-card">
+      <div class="tool-icon">${t.icon}</div>
+      <div class="tool-name">${t.name}</div>
+      <div class="tool-cat">${t.cat}</div>
+      <div class="tool-desc">${t.desc}</div>
+      <a href="${t.url}" target="_blank" class="tool-link">🔗 Learn More</a>
+    </div>
+  `).join('');
+}
+
+function renderCerts() {
+  document.getElementById('certsGrid').innerHTML = CERTS.map(c=>`
+    <div class="cert-card">
+      <div class="cert-icon">${c.icon}</div>
+      <div class="cert-name">${c.name}</div>
+      <div class="cert-org">${c.org}</div>
+      <div style="font-size:11px;background:rgba(255,204,0,0.1);border:1px solid rgba(255,204,0,0.2);padding:3px 10px;border-radius:4px;color:var(--warn);display:inline-block;margin-bottom:10px">${c.level}</div><br>
+      <a href="${c.url}" target="_blank" class="cert-link">🔗 Official Site</a>
+    </div>
+  `).join('');
+}
+</script>
+</body>
+</html>
